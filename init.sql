@@ -1,3 +1,5 @@
+-- this sql describes the final db1 schema for db1
+
 CREATE TABLE IF NOT EXISTS `contents` (`id` BIGINT NOT NULL auto_increment ,
      `content` MEDIUMTEXT NOT NULL,
      `created_at` DATETIME NOT NULL,
