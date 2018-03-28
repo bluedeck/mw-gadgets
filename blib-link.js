@@ -7,7 +7,7 @@
         var len = txt.length, rate = time/len;
         for(var i=0; i<len; i++) setTimeout(function(){ele.innerHTML += txt.shift();}, i*rate);
     })(ele, txt, time);
-})(document.getElementById("blib-link"), "2018.3.4 / ab12", 400, document.getElementById("8c23b4144bd58c689e192c6ab912a3b75c76f6849977518b8bedefd5e347d67f"));
+})(document.getElementById("blib-link"), "2018.3.5 / ab13", 400, document.getElementById("8c23b4144bd58c689e192c6ab912a3b75c76f6849977518b8bedefd5e347d67f"));
 
 (function(){
 
@@ -238,15 +238,15 @@ h3 span.${dom_id} {font-size: 17px;}
         const name_dict = {};
 
         const names = [];
-        
+
         if("// always include the name of this page") {
-            
+
             const this_page_name = window.wgPageName || mw.config.values.wgPageName || null;
 
             if(this_page_name)
                 names.push(this_page_name);
         }
-        
+
         const batch_name_limit = 30;  // best perf pending test
 
         narrowing_down_2.forEach(ele => {
@@ -341,10 +341,25 @@ h3 span.${dom_id} {font-size: 17px;}
                 ele.insertAdjacentHTML("afterend", insert);
 
             });
-            
+
             if("// check if this page is deleted and show a notice telling the user there's a library archive if so") {
-                
-                
+
+                const this_page_exists = Number((window.wgArticleId || mw.config.values.wgArticleId || 0)) > 0;
+                const this_page_name = window.wgPageName || mw.config.values.wgPageName || null;
+                const this_page_lib_exists = name_dict[this_page_name];
+                const siteSub = document.getElementById("siteSub");
+                const trigger_condition = (!this_page_exists) && this_page_lib_exists && !!(siteSub);
+
+                if(trigger_condition) {
+
+                    siteSub.insertAdjacentHTML(
+                        "afterend",
+                        `<div style="border-radius: 0.22em; background: rgba(255, 125, 25, 0.1); border-left: 0.31em solid rgba(255, 175, 125, 0.4); padding: 1em 1.25em; color: rgba(100,40,0,1);">` +
+                        `<div><strong>图书馆提示</strong></div>` +
+                        `<div>本页面存在<a href="/wiki/User:Bluedecklibrary/${this_page_name.replace(/"/g, "&quot;")}">图书馆存档</a>。</div>` +
+                        `</div>`
+                    );
+                }
             }
 
         }
