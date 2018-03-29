@@ -12,6 +12,7 @@
 (function(){
 
     const dom_id = "bldk_dom_id_fbc2343a21e23222a82b9891f175532b8";
+    const lib_url_prefix = "User:Bluedecklibrary/";
 
     (function(){
 
@@ -251,7 +252,7 @@ h3 span.${dom_id} {font-size: 17px;}
 
         narrowing_down_2.forEach(ele => {
 
-            const name = "User:Bluedecklibrary/" + decodeURIComponent(ele.href.substr(43).split("&")[0]);
+            const name = lib_url_prefix + decodeURIComponent(ele.href.substr(43).split("&")[0]);
 
             ele[nsym] = name;
 
@@ -346,17 +347,18 @@ h3 span.${dom_id} {font-size: 17px;}
 
                 const this_page_exists = Number((window.wgArticleId || mw.config.values.wgArticleId || 0)) > 0;
                 const this_page_name = window.wgPageName || mw.config.values.wgPageName || null;
-                const this_page_lib_exists = name_dict[this_page_name];
-                const siteSub = document.getElementById("siteSub");
-                const trigger_condition = (!this_page_exists) && this_page_lib_exists && !!(siteSub);
+                const this_page_lib_name = lib_url_prefix + this_page_name;
+                const this_page_lib_exists = name_dict[this_page_lib_name];
+                const mw_content_text = document.getElementById("mw-content-text");
+                const trigger_condition = (!this_page_exists) && this_page_lib_exists && !!(mw_content_text);
 
                 if(trigger_condition) {
 
-                    siteSub.insertAdjacentHTML(
-                        "afterend",
+                    mw_content_text.insertAdjacentHTML(
+                        "afterbegin",
                         `<div style="border-radius: 0.22em; background: rgba(255, 125, 25, 0.1); border-left: 0.31em solid rgba(255, 175, 125, 0.4); padding: 1em 1.25em; color: rgba(100,40,0,1);">` +
                         `<div><strong>图书馆提示</strong></div>` +
-                        `<div>本页面存在<a href="/wiki/User:Bluedecklibrary/${this_page_name.replace(/"/g, "&quot;")}">图书馆存档</a>。</div>` +
+                        `<div>本页面存在<a href="/wiki/${lib_url_prefix}${this_page_name.replace(/"/g, "&quot;")}">图书馆存档</a>。</div>` +
                         `</div>`
                     );
                 }
