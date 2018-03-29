@@ -7,7 +7,7 @@
         var len = txt.length, rate = time/len;
         for(var i=0; i<len; i++) setTimeout(function(){ele.innerHTML += txt.shift();}, i*rate);
     })(ele, txt, time);
-})(document.getElementById("blib-link"), "2018.3.5 / ab13", 400, document.getElementById("8c23b4144bd58c689e192c6ab912a3b75c76f6849977518b8bedefd5e347d67f"));
+})(document.getElementById("blib-link"), "2018.3.5 / ab14", 400, document.getElementById("8c23b4144bd58c689e192c6ab912a3b75c76f6849977518b8bedefd5e347d67f"));
 
 (function(){
 
